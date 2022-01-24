@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="Andres Rojas">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Ejercicio 1
+    </title>
+</head>
+
+<body>
+    <div>
+        <div style="width: 40%;margin: 0 auto">
+            <h2>
+                Escríbenos !!!
+            </h2>
+
+            <div class="result" style="color:green;font-style: italic">
+            </div>
+            <form id="formulario">
+                <div>
+                    <div class="nombre" style="display: flex;flex-direction: column;">
+                        <label>
+                            Nombre completo
+                        </label>
+                        <input id="nombre" type="text" class="nombre__input">
+                        <p class="errornombre" style="color:red;font-style: italic;"></p>
+                    </div>
+                    <div style="display: flex;flex-direction: column;">
+                        <label>
+                            Asunto
+                        </label>
+                        <input id="asunto" type="text" class="asunto__input">
+                        <p class="errorasunto" style="color:red;font-style: italic;"></p>
+                    </div>
+                </div>
+                <div style="display: flex;flex-direction: column;">
+                    <label>
+                        Mensaje
+                    </label>
+                    <textarea id="mensaje" class="mensaje__text"></textarea>
+                    <p class="errormensaje" style="color:red;font-style: italic;"></p>
+                </div>
+                <div>
+                    <button id="botton" type="submit">
+                        Envíar mensaje
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        function limpiarErrores() {
+            document.querySelector(".result").innerHTML = "";
+            document.querySelector(".errornombre").innerHTML = "";
+            document.querySelector(".errorasunto").innerHTML = "";
+            document.querySelector(".errormensaje").innerHTML = "";
+        };
+
+
+        function exito() {
+            document.querySelector(".result").innerHTML = "Mensaje enviado con exito";
+        };
+
+        function ingreso(nomb, asunt, mensaj) {
+
+            let pasamosLaValidacion = true;
+            let validacion = /[a-zA-Z]/gim;
+
+            if (validacion.test(nomb) === false) {
+                //alert("no")
+                document.querySelector(".errornombre").innerHTML = "El nombre es requerido."
+                pasamosLaValidacion = false;
+            }
+
+            if (validacion.test(asunt) === false) {
+                document.querySelector(".errorasunto").innerHTML = "El asunto es requerido."
+                pasamosLaValidacion = false;
+            }
+            if (validacion.test(mensaj) === false) {
+                document.querySelector(".errormensaje").innerHTML = "El mensaje es requerido."
+                pasamosLaValidacion = false;
+            }
+            return pasamosLaValidacion;
+        }
+
+
+        let form = document.getElementById("formulario");
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+            limpiarErrores();
+            let nomb = document.querySelector(".nombre__input").value
+            let asunt = document.querySelector(".asunto__input").value
+            let mensaj = document.querySelector(".mensaje__text").value
+
+            let resultado = ingreso(nomb, asunt, mensaj);
+
+            if (resultado === true) {
+                exito();
+            };
+        });
+    </script>
+
+
+
+
+</body>
+
+</html>
